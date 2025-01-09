@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - MyApp</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>MyApp Login</h1>
+    <form id="loginForm">
+      <label for="email">Email:
+        <input type="email" id="email" placeholder="user@example.com" required>
+      </label>
+      <label for="password">Password:
+        <input type="password" id="password" required>
+      </label>
+      <button type="submit" class="btn">Log In</button>
+    </form>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    // On form submission, call auth.login
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const success = await auth.login(email, password);
+      if (success) {
+        // If login is successful, go to the config page
+        window.location.href = 'config.html';
+      } else {
+        alert("Login failed. Please check your credentials.");
+      }
+    });
+  </script>
+</body>
+</html>

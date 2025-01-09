@@ -1,0 +1,31 @@
+/* login.css */
+
+/* Container for the login form */
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fafafa;
+  }
+  
+  /* Form label styles */
+  form label {
+    display: block;
+    margin: 0.5rem 0;
+  }
+  
+  /* Input field styling */
+  form input {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  
+  /* Button styling */
+  .btn {
+    padding: 0.7rem 1.2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Config - MyApp</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/config.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <span class="logo">MyApp</span>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="config-section">
+      <h1>User Configuration</h1>
+
+      <div class="config-controls">
+        <button id="fetchConfigBtn" class="btn">Fetch My Config</button>
+        <pre id="configOutput"></pre>
+      </div>
+
+      <div class="update-config-form">
+        <h2>Update Config</h2>
+        <form id="updateConfigForm">
+          <label>Key:
+            <input type="text" id="configKey" required>
+          </label>
+          <label>Value:
+            <input type="text" id="configValue" required>
+          </label>
+          <button type="submit" class="btn">Save Config</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="nav-section">
+      <h2>Navigate to WebRTC</h2>
+      <button id="webrtcBtn" class="btn">WebRTC Page</button>
+    </section>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/config.js"></script>
+  <script>
+    // If user not logged in, redirect to login
+    if (!auth.isLoggedIn()) {
+      window.location.href = 'index.html';
+    }
+
+    // Logout
+    document.getElementById('logoutBtn').onclick = () => {
+      auth.logout();
+      window.location.href = 'index.html';
+    };
+
+    // Fetch current config
+    document.getElementById('fetchConfigBtn').onclick = async () => {
+      try {
+        const configData = await configAPI.fetchConfig();
+        document.getElementById('configOutput').textContent =
+          JSON.stringify(configData, null, 2);
+      } catch (err) {
+        alert("Failed to fetch config: " + err.message);
+      }
+    };
+
+    // Update config
+    const updateForm = document.getElementById('updateConfigForm');
+    updateForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const key = document.getElementById('configKey').value.trim();
+      const value = document.getElementById('configValue').value.trim();
+
+      try {
+        await configAPI.updateConfig(key, value);
+        alert("Config updated!");
+      } catch (err) {
+        alert("Update failed: " + err.message);
+      }
+    });
+
+    // Go to WebRTC
+    document.getElementById('webrtcBtn').onclick = () => {
+      window.location.href = 'webrtc.html';
+    };
+  </script>
+</body>
+</html>
